@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aakanksha Khandare — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080b10;
+    --surface: #0e1117;
+    --surface2: #161b26;
+    --border: #1e2535;
+    --accent: #00d4ff;
+    --accent2: #7c3aed;
+    --accent3: #06d6a0;
+    --text: #e8eaf0;
+    --muted: #6b7a99;
+    --danger: #ff6b6b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Mono', monospace;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ---- NOISE OVERLAY ---- */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.35;
+  }
+
+  /* ---- NAV ---- */
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 3rem;
+    background: rgba(8,11,16,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 0.25rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    padding: 0.4rem 0.9rem;
+    border-radius: 4px;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+
+  .nav-links a:hover, .nav-links a.active {
+    color: var(--accent);
+    background: rgba(0,212,255,0.07);
+  }
+
+  /* ---- PAGES ---- */
+  .page {
+    display: none;
+    min-height: 100vh;
+    padding: 7rem 3rem 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    animation: fadeIn 0.4s ease;
+  }
+
+  .page.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---- SECTION HEADERS ---- */
+  .section-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+
+  h1, h2 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+  }
+
+  h1 {
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    margin-bottom: 2rem;
+  }
+
+  /* ========= HOME PAGE ========= */
+  #home {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+    padding-top: 5rem;
+    position: relative;
+  }
+
+  #home.active { display: flex; }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .hero-left {}
+
+  .hero-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent3);
+    border: 1px solid rgba(6,214,160,0.25);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-label::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent3);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .hero-name {
+    background: linear-gradient(135deg, #ffffff 0%, #a0b4cc 60%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    max-width: 420px;
+  }
+
+  .hero-subtitle span {
+    color: var(--accent);
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #000;
+    padding: 0.7rem 1.6rem;
+    border: none;
+    border-radius: 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-primary:hover {
+    background: #33ddff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,212,255,0.25);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    padding: 0.7rem 1.6rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  /* Hero right — stats & info */
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    transition: border-color 0.2s;
+  }
+
+  .stat-card:hover { border-color: rgba(0,212,255,0.3); }
+
+  .stat-icon {
+    font-size: 1.6rem;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface2);
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+
+  .stat-label {
+    font-size: 0.68rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.2rem;
+  }
+
+  .stat-value {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text);
+  }
+
+  /* Background glow */
+  .hero-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 70%);
+    top: 50%;
+    right: -100px;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  /* ========= ABOUT PAGE ========= */
+  #about .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .about-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    position: sticky;
+    top: 6rem;
+  }
+
+  .about-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 1.2rem;
+  }
+
+  .about-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .about-role {
+    font-size: 0.75rem;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+  }
+
+  .about-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  .meta-item span:first-child { font-size: 1rem; }
+
+  .about-content h2 {
+    margin-bottom: 1.2rem;
+  }
+
+  .about-content p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.9;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-content p strong {
+    color: var(--text);
+    font-weight: 400;
+  }
+
+  .education-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 1.2rem 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .edu-tag {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+
+  .edu-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .edu-detail {
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  .edu-cgpa {
+    display: inline-block;
+    margin-top: 0.6rem;
+    background: rgba(0,212,255,0.08);
+    border: 1px solid rgba(0,212,255,0.2);
+    color: var(--accent);
+    font-size: 0.72rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ========= PROJECTS PAGE ========= */
+  .projects-grid {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+
+  .project-card:hover::before { transform: scaleX(1); }
+  .project-card:hover {
+    border-color: rgba(0,212,255,0.2);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+  }
+
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+
+  .project-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .project-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  .tag {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .tag.accent { border-color: rgba(0,212,255,0.3); color: var(--accent); }
+  .tag.purple { border-color: rgba(124,58,237,0.3); color: #a78bfa; }
+  .tag.green { border-color: rgba(6,214,160,0.3); color: var(--accent3); }
+
+  .project-desc {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+
+  .project-highlights {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .project-highlights li {
+    font-size: 0.78rem;
+    color: var(--muted);
+    padding-left: 1.2rem;
+    position: relative;
+    line-height: 1.6;
+  }
+
+  .project-highlights li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 0.75rem;
+  }
+
+  .project-metric {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1rem;
+    background: rgba(6,214,160,0.08);
+    border: 1px solid rgba(6,214,160,0.2);
+    color: var(--accent3);
+    font-size: 0.72rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+  }
+
+  /* ========= SKILLS PAGE ========= */
+  .skills-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .skill-group {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+
+  .skill-group-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .skill-group-title::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .skill-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .skill-chip {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 0.75rem;
+    padding: 0.35rem 0.8rem;
+    border-radius: 6px;
+    transition: all 0.2s;
+  }
+
+  .skill-chip:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(0,212,255,0.05);
+  }
+
+  /* ========= ACHIEVEMENTS PAGE ========= */
+  .achievements-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .achievement-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.8rem 2rem;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1.5rem;
+    align-items: center;
+    transition: all 0.2s;
+  }
+
+  .achievement-card:hover {
+    border-color: rgba(0,212,255,0.25);
+    transform: translateX(4px);
+  }
+
+  .achievement-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .achievement-icon.gold { background: rgba(255,196,0,0.1); border: 1px solid rgba(255,196,0,0.2); }
+  .achievement-icon.silver { background: rgba(160,174,192,0.1); border: 1px solid rgba(160,174,192,0.2); }
+
+  .achievement-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .achievement-org {
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  .achievement-badge {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.3rem 0.7rem;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  .badge-gold {
+    background: rgba(255,196,0,0.1);
+    border: 1px solid rgba(255,196,0,0.3);
+    color: #ffc400;
+  }
+
+  .badge-silver {
+    background: rgba(160,174,192,0.1);
+    border: 1px solid rgba(160,174,192,0.3);
+    color: #a0aec0;
+  }
+
+  /* ========= CONTACT PAGE ========= */
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .contact-intro h2 { margin-bottom: 1rem; }
+
+  .contact-intro p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.9;
+    margin-bottom: 2rem;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.3rem;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.2s;
+    font-size: 0.82rem;
+  }
+
+  .contact-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateX(4px);
+  }
+
+  .contact-link-icon {
+    font-size: 1.2rem;
+    width: 36px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .contact-form {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.2rem;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .form-input, .form-textarea {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.7rem 1rem;
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.82rem;
+    transition: border-color 0.2s;
+    outline: none;
+    resize: none;
+  }
+
+  .form-input:focus, .form-textarea:focus {
+    border-color: var(--accent);
+  }
+
+  .form-textarea { height: 100px; }
+
+  .form-note {
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-top: 0.8rem;
+    text-align: center;
+  }
+
+  /* ========= RESPONSIVE ========= */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links a { font-size: 0.7rem; padding: 0.3rem 0.6rem; }
+    .page { padding: 6rem 1.5rem 3rem; }
+    .hero-grid, #about .about-grid, .skills-layout, .contact-layout { grid-template-columns: 1fr; gap: 2rem; }
+    h1 { font-size: 2.4rem; }
+    .achievement-card { grid-template-columns: auto 1fr; }
+    .achievement-badge { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#" onclick="showPage('home')">Aakanksha.</a>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
+    <li><a href="#" onclick="showPage('about')" id="nav-about">About</a></li>
+    <li><a href="#" onclick="showPage('projects')" id="nav-projects">Projects</a></li>
+    <li><a href="#" onclick="showPage('skills')" id="nav-skills">Skills</a></li>
+    <li><a href="#" onclick="showPage('achievements')" id="nav-achievements">Achievements</a></li>
+    <li><a href="#" onclick="showPage('contact')" id="nav-contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ===== HOME ===== -->
+<section class="page" id="home">
+  <div class="hero-glow"></div>
+  <div class="hero-grid">
+    <div class="hero-left">
+      <div class="hero-label">Available for opportunities</div>
+      <h1 class="hero-name">Aakanksha<br>Khandare</h1>
+      <p class="hero-subtitle">
+        CS undergraduate at <span>IIIT Pune</span> specializing in data analysis, automation &amp; system-level problem solving. Building intelligent tools for <span>fintech ecosystems</span>.
+      </p>
+      <div class="hero-ctas">
+        <a class="btn-primary" href="#" onclick="showPage('projects')">View Projects</a>
+        <a class="btn-outline" href="#" onclick="showPage('contact')">Get in Touch</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="stat-card">
+        <div class="stat-icon">🎓</div>
+        <div>
+          <div class="stat-label">Institution</div>
+          <div class="stat-value">IIIT Pune — CGPA 9.04</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⚡</div>
+        <div>
+          <div class="stat-label">Core Focus</div>
+          <div class="stat-value">Automation & Data Analysis</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🏆</div>
+        <div>
+          <div class="stat-label">Hackathons</div>
+          <div class="stat-value">Walmart · Citi Bank</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🌐</div>
+        <div>
+          <div class="stat-label">Interest Area</div>
+          <div class="stat-value">FinTech & Product Support</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="page" id="about">
+  <div class="about-grid">
+    <div>
+      <div class="about-card">
+        <div class="about-avatar">AK</div>
+        <div class="about-name">Aakanksha Khandare</div>
+        <div class="about-role">// CS Undergraduate · Technical Analyst</div>
+        <div class="about-meta">
+          <div class="meta-item"><span>📍</span><span>Pune, India</span></div>
+          <div class="meta-item"><span>📧</span><span>aakankshakhabdare2@gmail.com</span></div>
+          <div class="meta-item"><span>🔗</span><span>linkedin.com/in/aakanksha-khandare-886998279</span></div>
+          <div class="meta-item"><span>📱</span><span>+91 9307473430</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="about-content">
+      <div class="section-tag">// About Me</div>
+      <h2>Analytical. Systematic. Driven.</h2>
+      <p>
+        I'm a <strong>Computer Science undergraduate</strong> at IIIT Pune with a strong passion for building systems that solve real problems. My work sits at the intersection of <strong>data analysis, automation, and intelligent monitoring</strong> — areas I believe are central to the future of financial technology.
+      </p>
+      <p>
+        I gravitate toward problems that require both <strong>technical rigor and systems-level thinking</strong> — understanding not just how something breaks, but why, and how to prevent it from breaking again. I've applied this thinking to everything from log file analyzers to computer vision pipelines.
+      </p>
+      <p>
+        I'm actively looking for roles where I can work with <strong>mission-critical systems</strong>, collaborate with cross-functional teams, and grow my understanding of enterprise-grade product support and deployment.
+      </p>
+      <div class="education-block">
+        <div class="edu-tag">// Education</div>
+        <div class="edu-name">Indian Institute of Information Technology, Pune</div>
+        <div class="edu-detail">B.Tech in Computer Science Engineering · 2022 – 2026</div>
+        <div class="edu-cgpa">CGPA: 9.04 / 10</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROJECTS ===== -->
+<section class="page" id="projects">
+  <div class="section-tag">// Projects</div>
+  <h2>Things I've Built</h2>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-header">
+        <div>
+          <div class="project-title">Motorcycle Violation Monitoring System</div>
+          <div class="project-tags">
+            <span class="tag accent">Python</span>
+            <span class="tag accent">YOLOv8</span>
+            <span class="tag purple">Computer Vision</span>
+            <span class="tag green">Data Analysis</span>
+          </span>
+          </div>
+        </div>
+        <div style="font-size:1.8rem;">🚦</div>
+      </div>
+      <p class="project-desc">
+        An end-to-end automated monitoring system to detect contextual traffic violations in pedestrian-only zones using deep learning. Demonstrates how intelligent automation can eliminate manual supervision.
+      </p>
+      <ul class="project-highlights">
+        <li>Trained on 6,000+ annotated images across a structured 4-class taxonomy (MMNAP, MMAP, MNAP, PCP)</li>
+        <li>Achieved 90% mAP through systematic dataset refinement and hyperparameter optimization</li>
+        <li>Reduced false positives by improving annotation quality and preprocessing workflows</li>
+        <li>End-to-end pipeline from data collection to violation classification</li>
+      </ul>
+      <div class="project-metric">✦ 90% mAP achieved</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header">
+        <div>
+          <div class="project-title">Automated Log File Analyzer</div>
+          <div class="project-tags">
+            <span class="tag accent">Python</span>
+            <span class="tag green">Pandas</span>
+            <span class="tag purple">System Monitoring</span>
+          </div>
+        </div>
+        <div style="font-size:1.8rem;">🔍</div>
+      </div>
+      <p class="project-desc">
+        A log analysis tool that parses large system log files, identifies recurring error patterns, and generates structured reports for rapid root-cause analysis — replacing tedious manual inspection.
+      </p>
+      <ul class="project-highlights">
+        <li>Built filtering and aggregation scripts to detect high-frequency failure events</li>
+        <li>Identified abnormal system behavior patterns automatically</li>
+        <li>Generated structured summary reports to accelerate debugging workflows</li>
+        <li>Significantly reduced manual debugging time through automation</li>
+      </ul>
+      <div class="project-metric">✦ Automated repetitive log inspection</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header">
+        <div>
+          <div class="project-title">Sales Usage Trend Analysis</div>
+          <div class="project-tags">
+            <span class="tag accent">SQL</span>
+            <span class="tag green">Data Analytics</span>
+            <span class="tag purple">EDA</span>
+          </div>
+        </div>
+        <div style="font-size:1.8rem;">📊</div>
+      </div>
+      <p class="project-desc">
+        Structured data analysis pipeline using SQL to uncover customer usage trends, segment high-value users, and surface actionable operational insights from large datasets.
+      </p>
+      <ul class="project-highlights">
+        <li>Performed complex SQL queries — joins, aggregations, and subqueries — across customer datasets</li>
+        <li>Identified high-usage segments and anomaly patterns through exploratory data analysis</li>
+        <li>Generated insights to support data-driven decision-making and operational improvements</li>
+      </ul>
+      <div class="project-metric">✦ Data-driven operational insights</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header">
+        <div>
+          <div class="project-title">Exploratory Prompt Sensitivity Analysis in LLMs</div>
+          <div class="project-tags">
+            <span class="tag accent">Python</span>
+            <span class="tag purple">LLM APIs</span>
+            <span class="tag green">NLP Research</span>
+          </div>
+        </div>
+        <div style="font-size:1.8rem;">🧠</div>
+      </div>
+      <p class="project-desc">
+        A systematic research study on how variations in prompt phrasing, instruction ordering, and constraints affect LLM outputs — mapping reliability challenges in real-world AI usage.
+      </p>
+      <ul class="project-highlights">
+        <li>Analyzed output consistency, reasoning stability, and hallucination tendencies across semantically equivalent prompts</li>
+        <li>Compared zero-shot prompts under controlled perturbations to identify sensitivity patterns and failure modes</li>
+        <li>Documented qualitative observations and limitations to understand reliability challenges in production LLM systems</li>
+      </ul>
+      <div class="project-metric">✦ Identified LLM failure modes & sensitivity patterns</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header">
+        <div>
+          <div class="project-title">Image Super-Resolution using ESRGAN</div>
+          <div class="project-tags">
+            <span class="tag accent">PyTorch</span>
+            <span class="tag purple">GANs</span>
+            <span class="tag green">Perceptual Loss</span>
+          </div>
+        </div>
+        <div style="font-size:1.8rem;">🖼️</div>
+      </div>
+      <p class="project-desc">
+        End-to-end ESRGAN pipeline for single-image super-resolution, trained and evaluated across six benchmark datasets with scale-wise analysis at ×2, ×3, and ×4 magnification.
+      </p>
+      <ul class="project-highlights">
+        <li>Trained on DIV2K, Set5, Set14, BSD100, Urban100, and Manga109 datasets</li>
+        <li>Achieved PSNR up to 35.73 dB and SSIM up to 0.95, outperforming classical interpolation-based baselines</li>
+        <li>Performed scale-wise evaluation and analyzed degradation behavior across diverse image domains</li>
+      </ul>
+      <div class="project-metric">✦ PSNR 35.73 dB · SSIM 0.95</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header">
+        <div>
+          <div class="project-title">Automated Hair Segmentation in Dermoscopy Images</div>
+          <div class="project-tags">
+            <span class="tag accent">YOLOv8-Seg</span>
+            <span class="tag purple">Ultralytics</span>
+            <span class="tag green">OpenCV</span>
+          </div>
+        </div>
+        <div style="font-size:1.8rem;">🔬</div>
+      </div>
+      <p class="project-desc">
+        A non-traditional application of YOLOv8-seg for fine-structure hair masking in dermoscopy images, departing from conventional U-Net–based dermatological preprocessing pipelines.
+      </p>
+      <ul class="project-highlights">
+        <li>Created a custom instance segmentation dataset and trained models for fine-structure hair masking</li>
+        <li>Achieved a Dice score of 0.7509 and Jaccard Index of 82.04%, outperforming classical segmentation methods</li>
+        <li>Proposed novel use of instance segmentation architecture for a domain previously dominated by semantic approaches</li>
+      </ul>
+      <div class="project-metric">✦ Dice 0.7509 · Jaccard 82.04%</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== SKILLS ===== -->
+<section class="page" id="skills">
+  <div class="section-tag">// Skills</div>
+  <h2>Technical Toolkit</h2>
+  <div class="skills-layout">
+    <div class="skill-group">
+      <div class="skill-group-title">Programming</div>
+      <div class="skill-items">
+        <span class="skill-chip">Python</span>
+        <span class="skill-chip">C++</span>
+        <span class="skill-chip">SQL</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Data Analysis</div>
+      <div class="skill-items">
+        <span class="skill-chip">Pandas</span>
+        <span class="skill-chip">NumPy</span>
+        <span class="skill-chip">SQL Queries</span>
+        <span class="skill-chip">Data Cleaning</span>
+        <span class="skill-chip">Trend Analysis</span>
+        <span class="skill-chip">EDA</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Automation & Systems</div>
+      <div class="skill-items">
+        <span class="skill-chip">Scripting</span>
+        <span class="skill-chip">Workflow Optimization</span>
+        <span class="skill-chip">Log Monitoring</span>
+        <span class="skill-chip">Process Automation</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Tools & Frameworks</div>
+      <div class="skill-items">
+        <span class="skill-chip">Git</span>
+        <span class="skill-chip">YOLOv8 / Ultralytics</span>
+        <span class="skill-chip">OpenCV</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Concepts</div>
+      <div class="skill-items">
+        <span class="skill-chip">Debugging</span>
+        <span class="skill-chip">Root Cause Analysis</span>
+        <span class="skill-chip">System Monitoring</span>
+        <span class="skill-chip">Process Improvement</span>
+        <span class="skill-chip">Technical Documentation</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Soft Skills</div>
+      <div class="skill-items">
+        <span class="skill-chip">Cross-team Collaboration</span>
+        <span class="skill-chip">Problem Solving</span>
+        <span class="skill-chip">Communication</span>
+        <span class="skill-chip">Client Orientation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ACHIEVEMENTS ===== -->
+<section class="page" id="achievements">
+  <div class="section-tag">// Achievements</div>
+  <h2>Recognition</h2>
+  <div class="achievements-list">
+
+    <div class="achievement-card">
+      <div class="achievement-icon silver">🏅</div>
+      <div>
+        <div class="achievement-title">Semifinalist — Walmart Sparkplug Hackathon</div>
+        <div class="achievement-org">Walmart · National-level competitive hackathon</div>
+      </div>
+      <div class="achievement-badge badge-silver">Semifinalist</div>
+    </div>
+
+    <div class="achievement-card">
+      <div class="achievement-icon gold">🏆</div>
+      <div>
+        <div class="achievement-title">Top 20 Teams — Citi Bank Hackathon</div>
+        <div class="achievement-org">Citi Bank · FinTech focused competitive hackathon</div>
+      </div>
+      <div class="achievement-badge badge-gold">Top 20</div>
+    </div>
+
+    <div class="achievement-card">
+      <div class="achievement-icon" style="background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.2);">🎓</div>
+      <div>
+        <div class="achievement-title">CGPA 9.04 / 10</div>
+        <div class="achievement-org">Indian Institute of Information Technology, Pune · B.Tech CSE · 2022–2026</div>
+      </div>
+      <div class="achievement-badge" style="background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.25);color:var(--accent);">Academic</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section class="page" id="contact">
+  <div class="section-tag">// Contact</div>
+  <h2>Let's Connect</h2>
+  <div class="contact-layout">
+    <div class="contact-intro">
+      <p>
+        I'm actively looking for opportunities in technical analysis, product support, and fintech. Whether it's a full-time role, internship, or just a conversation — feel free to reach out.
+      </p>
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:aakankshakhabdare2@gmail.com">
+          <div class="contact-link-icon">📧</div>
+          <div>
+            <div style="font-size:0.7rem;color:var(--muted);margin-bottom:0.2rem;text-transform:uppercase;letter-spacing:0.1em;">Email</div>
+            aakankshakhabdare2@gmail.com
+          </div>
+        </a>
+        <a class="contact-link" href="https://www.linkedin.com/in/aakanksha-khandare-886998279" target="_blank">
+          <div class="contact-link-icon">🔗</div>
+          <div>
+            <div style="font-size:0.7rem;color:var(--muted);margin-bottom:0.2rem;text-transform:uppercase;letter-spacing:0.1em;">LinkedIn</div>
+            linkedin.com/in/aakanksha-khandare-886998279
+          </div>
+        </a>
+        <a class="contact-link" href="#">
+          <div class="contact-link-icon">💻</div>
+          <div>
+            <div style="font-size:0.7rem;color:var(--muted);margin-bottom:0.2rem;text-transform:uppercase;letter-spacing:0.1em;">GitHub</div>
+            github.com/aakanksha-khandare
+          </div>
+        </a>
+        <a class="contact-link" href="tel:+919307473430">
+          <div class="contact-link-icon">📍</div>
+          <div>
+            <div style="font-size:0.7rem;color:var(--muted);margin-bottom:0.2rem;text-transform:uppercase;letter-spacing:0.1em;">Location</div>
+            Pune, India
+          </div>
+        </a>
+        <a class="contact-link" href="tel:+919307473430">
+          <div class="contact-link-icon">📱</div>
+          <div>
+            <div style="font-size:0.7rem;color:var(--muted);margin-bottom:0.2rem;text-transform:uppercase;letter-spacing:0.1em;">Phone</div>
+            +91 9307473430
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="contact-form">
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;margin-bottom:1.5rem;color:var(--text);">Send a Message</div>
+      <div class="form-group">
+        <label class="form-label">Your Name</label>
+        <input class="form-input" type="text" placeholder="Jane Smith">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" type="email" placeholder="jane@company.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Message</label>
+        <textarea class="form-textarea" placeholder="Hi Aakanksha, I'd like to talk about..."></textarea>
+      </div>
+      <button class="btn-primary" style="width:100%;text-align:center;">Send Message →</button>
+      <p class="form-note">Or reach me directly at aakankshakhabdare2@gmail.com</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  function showPage(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    document.getElementById(pageId).classList.add('active');
+    document.getElementById('nav-' + pageId).classList.add('active');
+  }
+
+  // Init
+  showPage('home');
+</script>
+</body>
+</html>
